@@ -15,5 +15,7 @@ set expandtab
 set autoindent
  
 " Filespecific whitespace control
-autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2
+augroup filetypes
+    autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2
+augroup END
 
