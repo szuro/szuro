@@ -1,0 +1,34 @@
+---
+- name: Install desired packages
+  hosts: linux
+  tasks:
+  - name: Install packages
+    become: yes
+    ansible.builtin.apt:
+      pkg:
+      - fish
+      - git
+      - tmux
+      - vim
+
+  - name: Download config
+    ansible.builtin.git:
+      repo: https://github.com/szuro/szuro.git
+      dest: ~/config_repo
+    
+  - name: Enumerate configs
+    ansible.builtin.find:
+      hidden: yes
+      paths: ~/config_repo/configs
+      #recurse: yes
+      patterns: '.*'
+    register: configs
+
+  - name: Symlink config files
+    ansible.builtin.file:
+      dest: "~/{{ item.path | basename }}"
+      src: "{{ item.path }}"
+      state: link
+      force: yes
+    loop: "{{ configs.files }}"
+
