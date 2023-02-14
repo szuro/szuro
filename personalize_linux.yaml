@@ -32,3 +32,15 @@
       force: yes
     loop: "{{ configs.files }}"
 
+  - name: Remove default fish settings
+    ansible.builtin.file:
+      dest: "~/.config/fish/"
+      state: absent
+
+  - name: Symlink fish dir
+    ansible.builtin.file:
+      dest: "~/.config/fish"
+      src: "~/config_repo/configs/.config/fish"
+      state: link
+      force: yes
+
