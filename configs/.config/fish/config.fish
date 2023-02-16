@@ -5,5 +5,5 @@ end
 
 set -U EDITOR vim
 
-aliast ccr "zabbix_server -R config_cache_reload"
+alias ccr "zabbix_server -R config_cache_reload"
 
